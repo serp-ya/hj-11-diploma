@@ -1,0 +1,282 @@
+{
+  "tagName": "div",
+  "className": ["template-root"],
+  "content": [
+    {
+      "tagName": "div",
+      "className": ["breadcrumbs"],
+      "content": {
+        "tagName": "div",
+        "className": ["container"],
+        "content": {
+          "tagName": "div",
+          "className": ["row"],
+          "content": {
+            "tagName": "div",
+            "className": ["col-xs-12"],
+            "content": {
+              "tagName": "ul",
+              "content": [
+                {
+                  "tagName": "li",
+                  "className": ["home"],
+                  "content": [
+                    {
+                      "tagName": "a",
+                      "attributes": {"title": "Главная страница", "href": "/"},
+                      "content": "Главная"
+                    },
+                    {
+                      "tagName": "span",
+                      "content": "»"
+                    }
+                  ]
+                },
+                {
+                  "tagName": "li",
+                  "content": [
+                    {
+                      "tagName": "strong",
+                      "content": "<%name%>"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "tagName": "div",
+      "className": ["product-view-area"],
+      "content": [
+        {
+          "tagName": "div",
+          "className": ["product-big-image", "col-xs-12", "col-sm-9", "col-lg-5", "col-md-5"],
+          "content": {
+            "tagName": "div",
+            "className": ["large-image"],
+            "content": {
+              "tagName": "img",
+              "attributes": {"src": "<%images/products/+images:0%>"}
+            }
+          }
+        },
+        {
+          "tagName": "div",
+          "className": ["col-xs-12", "col-sm-9", "col-lg-7", "col-md-7"],
+          "content": {
+            "tagName": "div",
+            "className": ["product-details-area"],
+            "content": [
+              {
+                "tagName": "div",
+                "className": ["product-name"],
+                "content": {
+                  "tagName": "h1",
+                  "content": "<%name%>"
+                }
+              },
+              {
+                "tagName": "div",
+                "className": ["price-box"],
+                "content": "<%if(!!price.saleCost)%>",
+                "if": {
+                  "tagName": "div",
+                  "className": ["condition-if"],
+                  "content": [
+                    {
+                      "tagName": "p",
+                      "className": ["special-price"],
+                      "content": [
+                        {
+                          "tagName": "span",
+                          "className": ["price-label"],
+                          "content": "Special Price"
+                        },
+                        {
+                          "tagName": "span",
+                          "className": ["price"],
+                          "content": "$"
+                        },
+                        {
+                          "tagName": "span",
+                          "className": ["price"],
+                          "content": "<%price.saleCost%>"
+                        }
+                      ]
+                    },
+                    {
+                      "tagName": "p",
+                      "className": ["old-price"],
+                      "content": [
+                        {
+                          "tagName": "span",
+                          "className": ["price-label"],
+                          "content": "Regular Price:"
+                        },
+                        {
+                          "tagName": "span",
+                          "className": ["price"],
+                          "content": "<%price.cost%>"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "else": {
+                  "tagName": "div",
+                  "className": ["condition-else"],
+                  "content": {
+                    "tagName": "p",
+                    "className": ["special-price"],
+                    "content": [
+                      {
+                        "tagName": "span",
+                        "className": ["price-label"],
+                        "content": "Regular Price"
+                      },
+                      {
+                        "tagName": "span",
+                        "className": ["price"],
+                        "content": "$"
+                      },
+                      {
+                        "tagName": "span",
+                        "className": ["price"],
+                        "content": "<%price.cost%>"
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "tagName": "div",
+                "className": ["ratings"],
+                "content": [
+                  {
+                    "tagName": "div",
+                    "className": ["rating"],
+                    "repeater": true,
+                    "repeaterCount": "<%rating%>",
+                    "content": {
+                      "tagName": "i",
+                      "className": ["fa", "fa-star"]
+                    }
+                  },
+                  {
+                    "tagName": "div",
+                    "className": ["condition"],
+                    "content": "<%if(!!availability)%>",
+                    "if": {
+                      "tagName": "p",
+                      "className": ["availability", "in-stock", "pull-right"],
+                      "content": [
+                        {
+                          "tagName": "b",
+                          "content": "Доступность: "
+                        },
+                        {
+                          "tagName": "span",
+                          "content": "В наличии"
+                        }
+                      ]
+                    },
+                    "else": {
+                      "tagName": "p",
+                      "className": ["availability", "out-of-stock", "pull-right"],
+                      "content": [
+                        {
+                          "tagName": "b",
+                          "content": "Доступность: "
+                        },
+                        {
+                          "tagName": "span",
+                          "content": "Нет в наличии"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "tagName": "div",
+                "className": ["short-description"],
+                "content": [
+                  {
+                    "tagName": "h2",
+                    "content": "Краткое описание"
+                  },
+                  {
+                    "tagName": "p",
+                    "content": "<%owerview%>"
+                  }
+                ]
+              },
+              {
+                "tagName": "div",
+                "className": ["product-variation"],
+                "content": {
+                  "tagName": "form",
+                  "id": "add-to-cart-form",
+                  "content": {
+                    "tagName": "button",
+                    "className": ["button", "pro-add-to-cart"],
+                    "attributes": {"data-product-id": "<%_id%>", "title": "Add to Cart", "type": "button"},
+                    "content": {
+                      "tagName": "span",
+                      "content": [
+                        {
+                          "tagName": "i",
+                          "className": ["fa", "fa-shopping-cart"]
+                        },
+                        {
+                          "tagName": "span",
+                          "content": "Добавить в корзину"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "tagName": "div",
+      "className": ["product-overview-tab"],
+      "content": [
+        {
+          "tagName": "ul",
+          "className": ["nav", "nav-tabs", "product-tabs"],
+          "content": {
+            "tagName": "li",
+            "className": ["active"],
+            "content": {
+              "tagName": "b",
+              "content": "Описание товара"
+            }
+          }
+        },
+        {
+          "tagName": "div",
+          "className": ["tab-content"],
+          "content": {
+            "tagName": "div",
+            "content": {
+              "tagName": "div",
+              "className": ["std"],
+              "content": {
+                "tagName": "p",
+                "content": "<%description%>"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

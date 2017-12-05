@@ -1,0 +1,194 @@
+{
+  "tagName": "div",
+  "className": ["template-root"],
+  "content": [
+    {
+      "tagName": "div",
+      "className": ["page-title"],
+      "content": {
+        "tagName": "h2",
+        "content": "Результат поиска:"
+      }
+    },
+    {
+      "tagName": "div",
+      "className": ["product-list-area"],
+      "content": {
+        "tagName": "ul",
+        "className": ["products-list"],
+        "repeater": true,
+        "content": {
+          "tagName": "li",
+          "className": ["item"],
+          "content": [
+            {
+              "tagName": "div",
+              "className": ["product-img", "col-sm-4", "col-lg-4", "col-md-4"],
+              "content": {
+                "tagName": "a",
+                "attributes": {"href": "<%goods/+_id%>", "title": "<%name%>"},
+                "content": {
+                  "tagName": "figure",
+                  "content": {
+                    "tagName": "img",
+                    "attributes": {"src": "<%images/products/+images:0%>"},
+                    "className": ["small-image"]
+                  }
+                }
+              }
+            },
+            {
+              "tagName": "div",
+              "className": ["col-sm-8", "col-lg-8", "col-md-8"],
+              "content": {
+                "tagName": "div",
+                "className": ["product-shop"],
+                "content": [
+                  {
+                    "tagName": "h2",
+                    "className": ["product-name"],
+                    "content": {
+                      "tagName": "a",
+                      "attributes": {"href": "<%goods/+_id%>", "title": "<%name%>"},
+                      "content": "<%name%>"
+                    }
+                  },
+                  {
+                    "tagName": "div",
+                    "className": ["ratings"],
+                    "content": {
+                      "tagName": "div",
+                      "repeater": true,
+                      "repeaterCount": "<%rating%>",
+                      "className": ["rating"],
+                      "content": {
+                        "content": {
+                          "tagName": "i",
+                          "className": ["fa", "fa-star"]
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "tagName": "div",
+                    "className": ["desc", "std"],
+                    "content": {
+                      "tagName": "p",
+                      "content": "<%owerview%>"
+                    }
+                  },
+                  {
+                    "tagName": "div",
+                    "className": ["price-box"],
+                    "content": {
+                      "content": "<%if(!!price.saleCost)%>",
+                      "if": {
+                        "tagName": "div",
+                        "className": ["condition-if"],
+                        "content": [
+                          {
+                            "tagName": "p",
+                            "className": ["old-price"],
+                            "content": [
+                              {
+                                "tagName": "span",
+                                "className": ["price-label"]
+                              },
+                              {
+                                "tagName": "span",
+                                "className": ["price"],
+                                "content": [
+                                  {
+                                    "tagName": "span",
+                                    "content": "$"
+                                  },
+                                  {
+                                    "tagName": "span",
+                                    "content": "<%price.cost%>"
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "tagName": "p",
+                            "className": ["special-price"],
+                            "content": [
+                              {
+                                "tagName": "span",
+                                "className": ["price-label"]
+                              },
+                              {
+                                "tagName": "span",
+                                "className": ["price"],
+                                "content": "$"
+                              },
+                              {
+                                "tagName": "span",
+                                "className": ["price"],
+                                "content": "<%price.cost%>"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "else": {
+                        "tagName": "div",
+                        "className": ["condition-else"],
+                        "content": [
+                          {
+                            "tagName": "span",
+                            "className": ["regular-price"],
+                            "content": [
+                              {
+                                "tagName": "span",
+                                "className": ["price-label"]
+                              },
+                              {
+                                "tagName": "span",
+                                "className": ["price"],
+                                "content": "$"
+                              },
+                              {
+                                "tagName": "span",
+                                "className": ["price"],
+                                "content": "<%price.cost%>"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "tagName": "div",
+                    "className": ["actions"],
+                    "content": {
+                      "tagName": "div",
+                      "className": ["actions"],
+                      "content": {
+                        "tagName": "button",
+                        "className": ["button", "cart-button"],
+                        "attributes": {"data-product-id": "<%_id%>", "type": "button", "alt": "<%name%>"},
+                        "content": [
+                          {
+                            "tagName": "button",
+                            "className": ["fa", "fa-shopping-cart"]
+                          },
+                          {
+                            "tagName": "span",
+                            "content": "Добавить в корзину"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

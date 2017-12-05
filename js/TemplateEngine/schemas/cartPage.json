@@ -1,0 +1,235 @@
+{
+  "tagName": "div",
+  "className": ["template-root"],
+  "content": [
+    {
+      "tagName": "div",
+      "className": ["cart"],
+      "content": [
+        {
+          "tagName": "div",
+          "className": ["page-title"],
+          "content": {
+            "tagName": "h2",
+            "content": "Корзина товаров"
+          }
+        },
+        {
+          "tagName": "div",
+          "className": ["page-content", "page-order"],
+          "content": {
+            "tagName": "div",
+            "className": ["order-detail-content"],
+            "content": [
+              {
+                "tagName": "div",
+                "className": ["table-responsive"],
+                "content": {
+                  "tagName": "table",
+                  "className": ["table", "table-bordered", "cart_summary"],
+                  "content": [
+                    {
+                      "tagName": "thead",
+                      "content": {
+                        "tagName": "tr",
+                        "content": [
+                          {
+                            "tagName": "th",
+                            "className": ["cart_product"],
+                            "content": "Название"
+                          },
+                          {
+                            "tagName": "th",
+                            "content": "Описание"
+                          },
+                          {
+                            "tagName": "th",
+                            "content": "Наличие"
+                          },
+                          {
+                            "tagName": "th",
+                            "content": "Цена шт."
+                          },
+                          {
+                            "tagName": "th",
+                            "content": "Кол-во"
+                          },
+                          {
+                            "tagName": "th",
+                            "content": "Итог"
+                          },
+                          {
+                            "tagName": "th",
+                            "className": ["action"],
+                            "content": {
+                              "tagName": "ш",
+                              "className": ["fa", "fa-trash-o"]
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "tagName": "tbody",
+                      "repeater": true,
+                      "content": {
+                        "tagName": "tr",
+                        "className": ["repeater-item", "product-item"],
+                        "attributes": {"data-product-id": "<%_id%>"},
+                        "content": [
+                          {
+                            "tagName": "td",
+                            "className": ["cart_product"],
+                            "content": {
+                              "tagName": "a",
+                              "attributes": {
+                                "href": "<%goods/+_id%>"
+                              },
+                              "content": {
+                                "tagName": "img",
+                                "attributes": {
+                                  "src": "<%images/products/+images:0%>"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "tagName": "td",
+                            "className": ["cart_description"],
+                            "content": {
+                              "tagName": "p",
+                              "className": ["product-name"],
+                              "content": {
+                                "tagName": "a",
+                                "attributes": {"href": "<%goods/+_id%>"},
+                                "content": "<%name%>"
+                              }
+                           }
+                          },
+                          {
+                            "content": "<%if(!!availability)%>",
+                            "if": {
+                              "tagName": "td",
+                              "className": ["availability", "in-stock"],
+                              "content": {
+                                "tagName": "span",
+                                "className": ["availability", "in-stock"],
+                                "content": "В наличии"
+                              }
+                            },
+                            "else": {
+                              "tagName": "td",
+                              "className": ["availability", "out-of-stock"],
+                              "content": {
+                                "tagName": "span",
+                                "className": ["availability", "in-stock"],
+                                "content": "Нет в наличии"
+                              }
+                            }
+                          },
+                          {
+                            "content": "<%if(!!price.saleCost)%>",
+                            "if": {
+                              "tagName": "td",
+                              "className": ["price"],
+                              "content": [
+                                {
+                                  "tagName": "span",
+                                  "content": "$"
+                                },
+                                {
+                                  "tagName": "span",
+                                  "className": ["current-price"],
+                                  "content": "<%price.saleCost%>"
+                                }
+                              ]
+                            },
+                            "else": {
+                              "tagName": "td",
+                              "className": ["price"],
+                              "content": [
+                                {
+                                  "tagName": "span",
+                                  "content": "$"
+                                },
+                                {
+                                  "tagName": "span",
+                                  "className": ["current-price"],
+                                  "content": "<%price.cost%>"
+                                }
+                              ]
+                            }
+                          },
+                          {
+                            "tagName": "td",
+                            "className": ["qty"],
+                            "content": {
+                              "tagName": "input",
+                              "attributes": {"type": "number", "value": "<%count%>"},
+                              "className": ["form-control", "input-sm", "product-quantity"]
+                            }
+                          },
+                          {
+                            "content": "<%if(!!price.saleCost)%>",
+                            "if": {
+                              "tagName": "td",
+                              "className": ["price", "amount"],
+                              "content": {
+                                "tagName": "span",
+                                "content": [
+                                  {
+                                    "tagName": "span",
+                                    "content": "$"
+                                  },
+                                  {
+                                    "tagName": "span",
+                                    "className": ["amount-result"],
+                                    "content": "<%price.saleCost*count%>"
+                                  }
+                                ]
+                              }
+                            },
+                            "else": {
+                              "tagName": "td",
+                              "className": ["price", "amount"],
+                              "content": {
+                                "tagName": "span",
+                                "content": [
+                                  {
+                                    "tagName": "span",
+                                    "content": "$"
+                                  },
+                                  {
+                                    "tagName": "span",
+                                    "className": ["amount-result"],
+                                    "content": "<%price.cost*count%>"
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          {
+                            "tagName": "td",
+                            "className": ["action"],
+                            "content": {
+                              "tagName": "span",
+                              "className": ["delete-product"],
+                              "content": {
+                                "tagName": "i",
+                                "className": ["icon-close"]
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

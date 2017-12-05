@@ -1,0 +1,254 @@
+{
+  "tagName": "div",
+  "className": ["template-root"],
+  "content": [
+    {
+      "tagName": "div",
+      "className": ["page-title"],
+      "content": {
+        "tagName": "div",
+        "className": ["page-title"],
+        "content": "Наши товары"
+      }
+    },
+    {
+      "tagName": "div",
+      "className": ["toolbar"],
+      "content": {
+        "tagName": "div",
+        "className": ["sorter"],
+        "content": {
+          "tagName": "div",
+          "className": ["short-by", "page"],
+          "content": [
+            {
+              "tagName": "label",
+              "content": "Show:"
+            },
+            {
+              "tagName": "select",
+              "className": ["show-products-by"],
+              "content": [
+                {
+                  "content": "<%if(window.howMuchProductsShow==6)%>",
+                  "if": {
+                    "tagName": "option",
+                    "attributes": {"selected": "selected"},
+                    "content": "6"
+                  },
+                  "else": {
+                    "tagName": "option",
+                    "content": "6"
+                  }
+                },
+                {
+                  "content": "<%if(window.howMuchProductsShow==9)%>",
+                  "if": {
+                    "tagName": "option",
+                    "attributes": {"selected": "selected"},
+                    "content": "9"
+                  },
+                  "else": {
+                    "tagName": "option",
+                    "content": "9"
+                  }
+                },
+                {
+                  "content": "<%if(window.howMuchProductsShow==12)%>",
+                  "if": {
+                    "tagName": "option",
+                    "attributes": {"selected": "selected"},
+                    "content": "12"
+                  },
+                  "else": {
+                    "tagName": "option",
+                    "content": "12"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "tagName": "div",
+      "className": ["product-grid-area"],
+      "content": {
+        "tagName": "ul",
+        "className": ["products-grid"],
+        "repeater": true,
+        "content": {
+          "tagName": "li",
+          "className": ["item", "col-lg-4", "col-md-4", "col-sm-6", "col-xs-6"],
+          "content": {
+            "tagName": "div",
+            "className": ["product-item"],
+            "content": {
+              "tagName": "div",
+              "className": ["item-inner"],
+              "content": [
+                {
+                  "tagName": "div",
+                  "className": ["product-thumbnail"],
+                  "content": [
+                  {
+                    "tagName": "div",
+                    "className": ["pr-img-area"],
+                    "content": [
+                      {
+                        "tagName": "figure",
+                        "content": {
+                          "tagName": "img",
+                          "className": ["first-img"],
+                          "attributes": {"src": "<%images/products/+images:0%>", "alt": "<%name%>"}
+                        }
+                      },
+                      {
+                        "tagName": "button",
+                        "className": ["add-to-cart-mt"],
+                        "attributes": {"data-product-id": "<%_id%>", "type": "button", "alt": "<%name%>"},
+                        "content": [
+                          {
+                            "tagName": "i",
+                            "className": ["fa", "fa-shopping-cart"]
+                          },
+                          {
+                            "tagName": "span",
+                            "content": "Добавить в корзину"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "tagName": "div",
+                    "className": ["pr-info-area"],
+                    "content": {
+                      "tagName": "div",
+                      "className": ["pr-button"],
+                      "content": {
+                        "tagName": "div",
+                        "className": ["mt-button", "quick-view"],
+                        "content": {
+                          "tagName": "a",
+                          "attributes": {"href": "<%goods/+_id%>"},
+                          "content": {
+                            "tagName": "i",
+                            "className": ["fa", "fa-search"]
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+                },
+                {
+                  "tagName": "div",
+                  "className": ["item-info"],
+                  "content": {
+                    "tagName": "div",
+                    "className": ["info-inner"],
+                    "content": [
+                      {
+                        "tagName": "div",
+                        "className": ["item-title"],
+                        "content": {
+                          "tagName": "a",
+                          "attributes": {"href": "<%goods/+_id%>", "title": "<%name%>"},
+                          "content": "<%name%>"
+                        }
+                      },
+                      {
+                        "tagName": "div",
+                        "className": ["item-content"],
+                        "content": {
+                          "tagName": "div",
+                          "repeater": true,
+                          "repeaterCount": "<%rating%>",
+                          "className": ["rating"],
+                          "content": {
+                            "tagName": "i",
+                            "className": ["fa", "fa-star"]
+                          }
+                        }
+                      },
+                      {
+                        "tagName": "div",
+                        "className": ["item-price"],
+                        "content": {
+                          "tagName": "div",
+                          "className": ["price-box"],
+                          "content": "<%if(!!price.saleCost)%>",
+                          "if": {
+                            "tagName": "div",
+                            "className": ["condition-if"],
+                            "content": [
+                              {
+                                "tagName": "p",
+                                "className": ["special-price"],
+                                "content": [
+                                  {
+                                    "tagName": "span",
+                                    "className": ["price-label"],
+                                    "content": "Special Price"
+                                  },
+                                  {
+                                    "tagName": "span",
+                                    "className": ["price"],
+                                    "content": "$"
+                                  },
+                                  {
+                                    "tagName": "span",
+                                    "className": ["price"],
+                                    "content": "<%price.saleCost%>"
+                                  }
+                                ]
+                              },
+                              {
+                                "tagName": "p",
+                                "className": ["old-price"],
+                                "content": [
+                                  {
+                                    "tagName": "span",
+                                    "className": ["price-label"],
+                                    "content": "Regular Price:"
+                                  },
+                                  {
+                                    "tagName": "span",
+                                    "className": ["price"],
+                                    "content": "<%price.cost%>"
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          "else": {
+                            "tagName": "span",
+                            "className": ["regular-price"],
+                            "content": [
+                              {
+                                "tagName": "span",
+                                "className": ["price"],
+                                "content": "$"
+                              },
+                              {
+                                "tagName": "span",
+                                "className": ["price"],
+                                "content": "<%price.cost%>"
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  ]
+}
