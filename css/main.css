@@ -6967,3 +6967,6 @@ i.fa.fa-microphone.active {
 	transition: all 0.5s;
 }
 
+.product-item {
+  min-height: 430px;
+}
