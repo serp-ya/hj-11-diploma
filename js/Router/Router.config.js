@@ -9,13 +9,24 @@ appBlock.makeEmpty = function () {
   }
 };
 
+const preloader = document.getElementById('preloader');
+preloader.show = function() {
+  this.style.display = 'inherit';
+};
+
+preloader.hide = function() {
+  this.style.display = 'none';
+};
+
 // Настройки для пагинации и кол-ва вывода товаров по умолчанию
 window.howMuchProductsShow = 6;
 
 window.addEventListener('DOMContentLoaded', () => {
+  updateCartTopCounter();
 
   router
     .add(/goods\/(.*)/, function () {
+      preloader.show();
       appBlock.makeEmpty();
       const goodId = arguments[0];
       const productPageSchemaUrl = templateEngine.schemas.productPage;
@@ -33,10 +44,12 @@ window.addEventListener('DOMContentLoaded', () => {
 
           const addProductBtn = app.querySelector('.pro-add-to-cart');
           addProductBtn.addEventListener('click', addGoodInCart);
+          preloader.hide();
         })
         .catch(console.error);
     })
     .add(/cart/, function () {
+      preloader.show();
       appBlock.makeEmpty();
       const cartSchemaUrl = templateEngine.schemas.cartPage;
       const cartSchemaRequest = fetch(cartSchemaUrl);
@@ -60,14 +73,16 @@ window.addEventListener('DOMContentLoaded', () => {
           Array.from(productItems).forEach(productCard => {
             productCard.addEventListener('input', updateProductsCount);
             productCard.addEventListener('click', deleteProduct);
-          })
+          });
 
+          preloader.hide();
         })
         .catch(error => {
           if (error.message === 'Cart is empty') {
             const warningEmptyCart = document.createElement('h1');
             warningEmptyCart.innerText = 'Корзина пуста!';
             appBlock.appendChild(warningEmptyCart);
+            preloader.hide();
           } else {
             console.error(error);
             return false;
@@ -76,6 +91,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     })
     .add(/page\/(.*)/, function () {
+      preloader.show();
       appBlock.makeEmpty();
       const currentPageNumber = arguments[0];
       const productsListSchemaUrl = templateEngine.schemas.productsList;
@@ -107,11 +123,13 @@ window.addEventListener('DOMContentLoaded', () => {
           const pagination = templateEngine.renderPagination(countNumber, currentPageNumber);
           app.appendChild(pagination);
           router.pickUpLinks();
+          preloader.hide();
         })
         .catch(console.error);
 
     })
     .add(/search(.*)/, function () {
+      preloader.show();
       appBlock.makeEmpty();
       const searchQuery = arguments[0].replace('?', '?search=');
       const searchResultPageSchemaUrl = templateEngine.schemas.searchPage;
@@ -134,14 +152,13 @@ window.addEventListener('DOMContentLoaded', () => {
           });
 
           router.pickUpLinks();
+          preloader.hide();
         })
         .catch(console.error);
     })
-    .add(function () {
-      // По умолчанию, редирект на страницу первую страницу товаров
-      router.navigate('/page/1');
+    .add(function() {
+      // По умолчанию, редирект на 1 страницу выдачи товаров
+      router.navigate('/page/1').check();
     })
     .check().listen();
-
-  router.navigate('/page/1');
 });
