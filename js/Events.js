@@ -48,21 +48,18 @@ function addGoodInCart(event) {
       throw new Error('Invalid product\'s Id');
     }
 
-    const requestConfig = {
-      method: 'POST',
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({'_id': productId})
-    };
+    const requestConfig = Object.assign({}, requestDefaultConfig);
+    requestConfig.method = 'POST';
+    requestConfig.headers = {'Content-Type': 'application/json'};
+    requestConfig.body = JSON.stringify({'_id': productId});
 
     const sendingProduct = fetch(userCartRequestApiUrl, requestConfig);
     sendingProduct
       .then(res => {
-        if (200 < res.status > 299) {
+        if (200 < res.status || res.status > 299) {
           throw new Error('Invalid request status code');
         }
+        updateCartTopCounter();
       })
       .catch(console.error);
 
@@ -91,12 +88,13 @@ function updateProductsCount(event) {
 
     fetch(userCartRequestApiUrl, updateConfig)
       .then(res => {
-        if (200 < res.status > 299) {
+        if (200 < res.status || res.status > 299) {
           throw new Error(`Invalid status: ${res.status}`);
         }
 
         const newAmountResult = Number(priceField.textContent) * newQuantity;
         amountResultField.textContent = newAmountResult.toFixed(2);
+        updateCartTopCounter();
       })
       .catch(error => {
         console.error(error);
@@ -117,11 +115,12 @@ function deleteProduct(event) {
 
     fetch(userCartRequestApiUrl, deleteConfig)
       .then(res => {
-        if (200 < res.status > 299) {
+        if (200 < res.status || res.status > 299) {
           throw new Error(`Invalid status: ${res.status}`);
         }
 
         currentProductCard.remove();
+        updateCartTopCounter();
       })
       .catch(error => {
         console.error(error);
@@ -129,6 +128,30 @@ function deleteProduct(event) {
       });
   }
 
+}
+
+function updateCartTopCounter() {
+  const cartCounter = document.getElementById('countInCart');
+  fetch(userCartRequestApiUrl + '?count=true', requestDefaultConfig)
+    .then(res => {
+      if (res.status === 404) {
+        cartCounter.innerText = null;
+        return console.log('Cart is empty');
+      } else if (200 < res.status || res.status > 299) {
+        throw new Error('Invalid request status code');
+      }
+      return res.json();
+    })
+    .then(res => {
+      const count = res.count;
+
+      if (!count) {
+        cartCounter.innerText = null;
+      } else {
+        cartCounter.innerText = `(${count})`
+      }
+    })
+    .catch(console.error);
 }
 
 function changeShowBy(event) {
