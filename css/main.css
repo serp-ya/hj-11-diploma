@@ -1803,7 +1803,7 @@ a.info {
 	position: absolute;
 	text-align: center;
 	text-transform: none;
-	transition: all .5s ease-out 0s;
+	transition: all .2s ease-out 0s;
 	width: 100%;
 	padding: 12px 0;
 	color: #fff

@@ -965,3 +965,11 @@ button.button.sign-in {
 .typing img {
 	vertical-align: baseline;
 }
+
+#preloader {
+	text-align: center;
+}
+
+button.add-to-cart-mt:active {
+	background: #0b8274;
+}
