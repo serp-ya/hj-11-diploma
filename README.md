@@ -5,7 +5,7 @@
 
 Демонстрация:
 + Страница сайта
-https://serp-ya.github.io/hj-11-diploma/#/page/1
+https://serp-ya.github.io/hj-11-diploma/
 + Страница админа
 https://serp-ya.github.io/hj-11-diploma/admin/
 
