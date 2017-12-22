@@ -86,7 +86,7 @@ window.addEventListener('DOMContentLoaded', () => {
           if (error.message === 'Cart is empty') {
             const warningEmptyCart = document.createElement('h1');
             warningEmptyCart.innerText = 'Корзина пуста!';
-            appBlock.appendChild(warningEmptyCart);
+            appBlock.renderPage(warningEmptyCart);
             preloader.hide();
           } else {
             console.error(error);
