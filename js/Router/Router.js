@@ -52,8 +52,8 @@ class Router {
     return this;
   }
 
-  navigate(path) {
-    window.location.hash = path ? path : '';
+  navigate(hash) {
+    window.location.hash = hash ? hash : '';
 
     return this;
   }
