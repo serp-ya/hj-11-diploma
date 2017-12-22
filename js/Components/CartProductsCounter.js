@@ -15,32 +15,20 @@ class CartProductsCounter {
   }
 
   updateCartCount(event) {
-    fetch(userCartRequestApiUrl + '?count=true', requestDefaultConfig)
-      .then(res => {
-        if (res.status === 404) {
-          this.cartCounter.innerText = null;
-          throw new Error('Cart not found');
-
-        } else if (200 < res.status || res.status > 299) {
-          throw new Error('Invalid request status code');
-        }
-
-        return res.json();
-      })
+    cartApi.updateCartCount()
       .then(res => {
         const count = res.count;
-
-        if (!count) {
-          this.cartCounter.innerText = null;
-        } else {
-          this.cartCounter.innerText = `(${count})`
-        }
+        this.cartCounter.innerText = count ? `(${count})` : null;
       })
       .catch(error => {
+        this.cartCounter.innerText = null;
+
         if (error.message === 'Cart not found') {
           return false;
+
+        } else {
+          console.error(error);
         }
-        console.error(error)
       });
   }
 }

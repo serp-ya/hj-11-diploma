@@ -1,7 +1,7 @@
 'use strict';
 const router = new Router();
-const requestDefaultConfig = {credentials: 'include'};
 const appBlock = document.getElementById('app');
+
 
 appBlock.makeEmpty = function () {
   while (this.childElementCount) {
@@ -9,7 +9,13 @@ appBlock.makeEmpty = function () {
   }
 };
 
+appBlock.renderPage = function (domElements) {
+  this.makeEmpty();
+  this.appendChild(domElements);
+};
+
 const preloader = document.getElementById('preloader');
+
 preloader.show = function() {
   this.style.display = 'inherit';
 };
@@ -27,10 +33,9 @@ window.addEventListener('DOMContentLoaded', () => {
   });
 
   router
-    .add(/goods\/(.*)/, function () {
+    .add(/goods\/(.*)/, function (goodId) {
       preloader.show();
-      appBlock.makeEmpty();
-      const goodId = arguments[0];
+
       const productPageSchemaUrl = templateEngine.schemas.productPage;
       const productPageSchemaRequest = fetch(productPageSchemaUrl);
       const productRequest = fetch(goodsRequestApiUrl + `/${goodId}`, requestDefaultConfig);
@@ -41,19 +46,18 @@ window.addEventListener('DOMContentLoaded', () => {
         })
         .then(([schema, data]) => {
           const domElements = templateEngine.renderPage(schema, data);
-          app.appendChild(domElements);
-          router.pickUpLinks();
+          appBlock.renderPage(domElements);
 
           const addProductBtn = app.querySelector('.pro-add-to-cart');
           new AddToCartBtn({ rootElement: addProductBtn});
 
           preloader.hide();
         })
-        .catch(console.error);
+        .catch(error => console.error(error));
     })
     .add(/cart/, function () {
       preloader.show();
-      appBlock.makeEmpty();
+
       const cartSchemaUrl = templateEngine.schemas.cartPage;
       const cartSchemaRequest = fetch(cartSchemaUrl);
       const userCartRequest = fetch(userCartRequestApiUrl, requestDefaultConfig);
@@ -68,8 +72,7 @@ window.addEventListener('DOMContentLoaded', () => {
         })
         .then(([schema, data]) => {
           const domElements = templateEngine.renderPage(schema, data.cart.goods);
-          app.appendChild(domElements);
-          router.pickUpLinks();
+          appBlock.renderPage(domElements);
 
           const productItems = document.querySelectorAll('.product-item');
 
@@ -92,10 +95,9 @@ window.addEventListener('DOMContentLoaded', () => {
         })
 
     })
-    .add(/page\/(.*)/, function () {
+    .add(/page\/(.*)/, function (currentPageNumber) {
       preloader.show();
-      appBlock.makeEmpty();
-      const currentPageNumber = arguments[0];
+
       const productsListSchemaUrl = templateEngine.schemas.productsList;
       const productsListSchemaRequest = fetch(productsListSchemaUrl);
       const productsRequestUrl = goodsRequestApiUrl + `?limit=${window.howMuchProductsShow}&offset=${(currentPageNumber -1 ) * window.howMuchProductsShow}`;
@@ -107,7 +109,7 @@ window.addEventListener('DOMContentLoaded', () => {
         })
         .then(([schema, data]) => {
           const domElements = templateEngine.renderPage(schema, data);
-          app.appendChild(domElements);
+          appBlock.renderPage(domElements);
 
           const addProductBtns = app.querySelectorAll('.add-to-cart-mt');
 
@@ -123,17 +125,17 @@ window.addEventListener('DOMContentLoaded', () => {
         .then(res => res.json())
         .then(countNumber => {
           const pagination = templateEngine.renderPagination(countNumber, currentPageNumber);
-          app.appendChild(pagination);
-          router.pickUpLinks();
+          appBlock.appendChild(pagination);
+
           preloader.hide();
         })
-        .catch(console.error);
+        .catch(error => console.error(error));
 
     })
-    .add(/search(.*)/, function () {
+    .add(/search(.*)/, function (searchQueryString) {
       preloader.show();
-      appBlock.makeEmpty();
-      const searchQuery = arguments[0].replace('?', '?search=');
+
+      const searchQuery = searchQueryString.replace('?', '?search=');
       const searchResultPageSchemaUrl = templateEngine.schemas.searchPage;
       const searchResultPageSchemaRequest = fetch(searchResultPageSchemaUrl);
       const searchResultUrl = goodsRequestApiUrl + searchQuery;
@@ -145,7 +147,7 @@ window.addEventListener('DOMContentLoaded', () => {
         })
         .then(([schema, data]) => {
           const domElements = templateEngine.renderPage(schema, data);
-          app.appendChild(domElements);
+          appBlock.renderPage(domElements);
 
           const addProductBtns = app.querySelectorAll('.cart-button');
 
@@ -153,14 +155,13 @@ window.addEventListener('DOMContentLoaded', () => {
             new AddToCartBtn({ rootElement: addBtn });
           });
 
-          router.pickUpLinks();
           preloader.hide();
         })
-        .catch(console.error);
+        .catch(error => console.error(error));
     })
     .add(function() {
       // По умолчанию, редирект на 1 страницу выдачи товаров
       router.navigate('/page/1').check();
     })
-    .check().listen();
+    .check().listen().pickUpLinks();
 });

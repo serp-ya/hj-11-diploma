@@ -29,52 +29,50 @@ class Router {
   check(f) {
     const fragment = f || this.getFragment();
 
-    for(let i=0; i<this.routes.length; i++) {
-      const match = fragment.match(this.routes[i].re);
+    this.routes.some((rout) => {
+      const match = fragment.match(rout.re);
 
-      if(match) {
+      if (match) {
         match.shift();
-        this.routes[i].handler.apply({}, match);
-        return this;
+        rout.handler.apply({}, match);
+
+        return true;
       }
-    }
+    });
 
     return this;
   }
 
   listen() {
-    const self = this;
-    let current = self.getFragment();
-    const fn = function() {
-      if(current !== self.getFragment()) {
-        current = self.getFragment();
-        self.check(current);
-      }
-    };
+    window.addEventListener('hashchange', () => {
+      const current = this.getFragment();
+      this.check(current);
+    });
 
-    clearInterval(this.interval);
-    this.interval = setInterval(fn, 50);
     return this;
   }
 
   navigate(path) {
-    path = path ? path : '';
-    window.location.href = window.location.href.replace(/#(.*)$/, '') + '#' + path;
+    window.location.hash = path ? path : '';
 
     return this;
   }
 
   pickUpLinks() {
-    const links = document.querySelectorAll('a');
+    document.body.addEventListener('click', (event) => {
+      let target = event.target;
 
-    Array.from(links).forEach(function (link) {
-      link.addEventListener('click', sendLinkToRouter);
+      if (target.closest('a')) {
+        event.preventDefault();
+
+        while(target.tagName != 'A') {
+          target = target.parentNode;
+        }
+
+        this.navigate(target.pathname);
+      }
     });
+    
+    return this;
   }
-}
-
-function sendLinkToRouter(event) {
-  const linkHref = event.currentTarget.pathname;
-  router.navigate(linkHref);
-  event.preventDefault();
 }

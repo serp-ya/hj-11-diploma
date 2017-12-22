@@ -19,7 +19,6 @@ class CartItem {
 
     this.deleteBtn.addEventListener('click', this.deleteProduct.bind(this));
     this.quantityFeild.addEventListener('input', this.updateQuantity.bind(this));
-
   }
 
   get quantity() {
@@ -27,21 +26,11 @@ class CartItem {
   }
 
   deleteProduct(event) {
-    const deleteConfig = Object.assign({}, requestDefaultConfig);
-    deleteConfig.method = 'DELETE';
-    deleteConfig.headers = {'Content-Type': 'application/json'};
-    deleteConfig.body = JSON.stringify({'_id': this.productId});
-
-    fetch(userCartRequestApiUrl, deleteConfig)
-      .then(res => {
-        if (200 < res.status || res.status > 299) {
-          throw new Error(`Invalid status: ${res.status}`);
-        }
-
+    cartApi.deleteProduct(this.productId)
+      .then(() => {
         this.cartItem.remove();
-        window.dispatchEvent(window.updateCartCountEvent);
       })
-      .catch(error => {
+      .catch(eror => {
         console.error(error);
         return false;
       });
@@ -54,20 +43,10 @@ class CartItem {
       return this.quantityFeild.value = 1;
     }
 
-    const updateConfig = Object.assign({}, requestDefaultConfig);
-    updateConfig.method = 'PUT';
-    updateConfig.headers = {'Content-Type': 'application/json'};
-    updateConfig.body = JSON.stringify({'_id': this.productId, count: quantity});
-
-    fetch(userCartRequestApiUrl, updateConfig)
-      .then(res => {
-        if (200 < res.status || res.status > 299) {
-          throw new Error(`Invalid status: ${res.status}`);
-        }
-
-        const newAmountResult = Number(this.priceField.textContent) * quantity;
+    cartApi.updateProductItemQuantity(this.productId, quantity)
+      .then(newQuantity => {
+        const newAmountResult = Number(this.priceField.textContent) * newQuantity;
         this.amountResultField.textContent = newAmountResult.toFixed(2);
-        window.dispatchEvent(window.updateCartCountEvent);
       })
       .catch(error => {
         console.error(error);

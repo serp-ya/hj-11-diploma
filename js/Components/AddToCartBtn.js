@@ -16,21 +16,6 @@ class AddToCartBtn {
   }
 
   addProduct(event) {
-    const requestConfig = Object.assign({}, requestDefaultConfig);
-    requestConfig.method = 'POST';
-    requestConfig.headers = {'Content-Type': 'application/json'};
-    requestConfig.body = JSON.stringify({'_id': this.productId});
-
-    fetch(userCartRequestApiUrl, requestConfig)
-      .then(res => {
-        if (200 < res.status || res.status > 299) {
-          throw new Error('Invalid request status code');
-        }
-
-        window.dispatchEvent(window.updateCartCountEvent);
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    cartApi.addProduct(this.productId);
   }
 }
