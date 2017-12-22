@@ -4,6 +4,51 @@
   "content": [
     {
       "tagName": "div",
+      "className": ["breadcrumbs"],
+      "content": {
+        "tagName": "div",
+        "className": ["container"],
+        "content": {
+          "tagName": "div",
+          "className": ["row"],
+          "content": {
+            "tagName": "div",
+            "className": ["col-xs-12"],
+            "content": {
+              "tagName": "ul",
+              "content": [
+                {
+                  "tagName": "li",
+                  "className": ["home"],
+                  "content": [
+                    {
+                      "tagName": "a",
+                      "attributes": {"title": "Главная страница", "href": "/"},
+                      "content": "Главная"
+                    },
+                    {
+                      "tagName": "span",
+                      "content": "»"
+                    }
+                  ]
+                },
+                {
+                  "tagName": "li",
+                  "content": [
+                    {
+                      "tagName": "strong",
+                      "content": "Поиск"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "tagName": "div",
       "className": ["page-title"],
       "content": {
         "tagName": "h2",

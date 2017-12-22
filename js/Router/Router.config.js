@@ -22,7 +22,9 @@ preloader.hide = function() {
 window.howMuchProductsShow = 6;
 
 window.addEventListener('DOMContentLoaded', () => {
-  updateCartTopCounter();
+  new CartProductsCounter({
+    rootElement: document.getElementById('countInCart')
+  });
 
   router
     .add(/goods\/(.*)/, function () {
@@ -43,7 +45,8 @@ window.addEventListener('DOMContentLoaded', () => {
           router.pickUpLinks();
 
           const addProductBtn = app.querySelector('.pro-add-to-cart');
-          addProductBtn.addEventListener('click', addGoodInCart);
+          new AddToCartBtn({ rootElement: addProductBtn});
+
           preloader.hide();
         })
         .catch(console.error);
@@ -71,8 +74,7 @@ window.addEventListener('DOMContentLoaded', () => {
           const productItems = document.querySelectorAll('.product-item');
 
           Array.from(productItems).forEach(productCard => {
-            productCard.addEventListener('input', updateProductsCount);
-            productCard.addEventListener('click', deleteProduct);
+            new CartItem({ rootElement: productCard });
           });
 
           preloader.hide();
@@ -110,11 +112,11 @@ window.addEventListener('DOMContentLoaded', () => {
           const addProductBtns = app.querySelectorAll('.add-to-cart-mt');
 
           Array.from(addProductBtns).forEach(addBtn => {
-            addBtn.addEventListener('click', addGoodInCart)
+            new AddToCartBtn({ rootElement: addBtn });
           });
 
           const showProductsBySelect = app.querySelector('.show-products-by');
-          showProductsBySelect.addEventListener('change', changeShowBy);
+          new ShowProductsByList({ rootElement: showProductsBySelect });
 
           return fetch(goodsCountRequestApiUrl, requestDefaultConfig);
         })
@@ -148,7 +150,7 @@ window.addEventListener('DOMContentLoaded', () => {
           const addProductBtns = app.querySelectorAll('.cart-button');
 
           Array.from(addProductBtns).forEach(addBtn => {
-            addBtn.addEventListener('click', addGoodInCart)
+            new AddToCartBtn({ rootElement: addBtn });
           });
 
           router.pickUpLinks();
