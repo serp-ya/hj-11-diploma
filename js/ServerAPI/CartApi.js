@@ -9,17 +9,18 @@ function addProduct(productId) {
   const requestConfig = Object.assign({}, requestJsonConfigs.post);
   requestConfig.body = JSON.stringify({'_id': productId});
 
-  fetch(userCartRequestApiUrl, requestConfig)
-    .then(res => {
-      if (200 < res.status || res.status > 299) {
-        throw new Error('Invalid request status code');
-      }
+  return new Promise((done, fail) => {
+    fetch(userCartRequestApiUrl, requestConfig)
+      .then(res => {
+        if (200 < res.status || res.status > 299) {
+          throw new Error('Invalid request status code');
+        }
 
-      window.dispatchEvent(window.updateCartCountEvent);
-    })
-    .catch(error => {
-      console.error(error);
-    });
+        // window.dispatchEvent(window.updateCartCountEvent);
+        done(res);
+      })
+      .catch(error => fail(error));
+  });
 }
 
 function updateProductItemQuantity(productId, newQuantity) {
@@ -33,7 +34,7 @@ function updateProductItemQuantity(productId, newQuantity) {
           throw new Error(`Invalid status: ${res.status}`);
         }
 
-        window.dispatchEvent(window.updateCartCountEvent);
+        // window.dispatchEvent(window.updateCartCountEvent);
         done(newQuantity);
       })
       .catch(error => fail(error));
@@ -51,7 +52,7 @@ function deleteProduct(productId) {
           throw new Error(`Invalid status: ${res.status}`);
         }
 
-        window.dispatchEvent(window.updateCartCountEvent);
+        // window.dispatchEvent(window.updateCartCountEvent);
         done(res);
       })
       .catch(error => fail(error));

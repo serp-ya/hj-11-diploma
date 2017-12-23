@@ -45,8 +45,10 @@ class Router {
 
   listen() {
     window.addEventListener('hashchange', () => {
-      const current = this.getFragment();
-      this.check(current);
+      setTimeout(() => {
+        const current = this.getFragment();
+        this.check(current);
+      }, 50);
     });
 
     return this;
@@ -54,7 +56,6 @@ class Router {
 
   navigate(hash) {
     window.location.hash = hash ? hash : '';
-
     return this;
   }
 
@@ -72,7 +73,7 @@ class Router {
         this.navigate(target.pathname);
       }
     });
-    
+
     return this;
   }
 }

@@ -64,13 +64,14 @@ window.addEventListener('DOMContentLoaded', () => {
 
       Promise.all([cartSchemaRequest, userCartRequest])
         .then(([schemaResponse, dataResponse]) => {
-          if (dataResponse.status === 404) {
-            throw new Error('Cart is empty');
-          }
 
           return Promise.all([schemaResponse.json(), dataResponse.json()]);
         })
         .then(([schema, data]) => {
+          if ((!Object.keys(data.cart).length) || (!data.cart.goods.length)) {
+            throw new Error('Cart is empty');
+          }
+          
           const domElements = templateEngine.renderPage(schema, data.cart.goods);
           appBlock.renderPage(domElements);
 
@@ -118,7 +119,7 @@ window.addEventListener('DOMContentLoaded', () => {
           });
 
           const showProductsBySelect = app.querySelector('.show-products-by');
-          new ShowProductsByList({ rootElement: showProductsBySelect });
+          new ShowProductsBy({ rootElement: showProductsBySelect });
 
           return fetch(goodsCountRequestApiUrl, requestDefaultConfig);
         })
