@@ -253,6 +253,7 @@ https://serp-ya.github.io/hj-11-diploma/admin/
 
 Некоторые управляемые элементы настраиваются с помощью классов, отвечающих на `View` и `Controller`. Их функционал вынесен в отдельные папки и файлы и все они находятся в папке `./js/Components/`. Структура директории такова:
 
+```
 Components
 ├── Cart
 │   └── CartController.js
@@ -265,6 +266,7 @@ Components
 └── ShowProductsBy
     └── ShowProductsByController.js
     └── ShowProductsBy.js
+```
 
 + `CartController.js` - контроллер, объединяет представление кнопок "Добавить в корзину", счётчиков товаров в корзине и карточек товаров при просмотре корзины и их функционала
 + `AddToCartBtn.js` - представление кнопки добавления товара в корзину.
