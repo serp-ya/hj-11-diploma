@@ -48,7 +48,7 @@ class Router {
       setTimeout(() => {
         const current = this.getFragment();
         this.check(current);
-      }, 50);
+      }, 100);
     });
 
     return this;
