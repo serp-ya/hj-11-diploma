@@ -17,14 +17,10 @@ class CartController {
     }
 
     cartApi.addProduct(productId)
-      .then((res) => {
-        if (200 < res.status || res.status > 299) {
-          throw new Error(`Invalid status: ${res.status}`);
-        }
-
+      .then(() => {
         updateCounters();
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
         return false;
       });
@@ -36,21 +32,11 @@ class CartController {
 
   updateProductCounters() {
     cartApi.updateCartCount()
-      .then((res) => {
-        if (res.status === 404) {
-          throw new Error('Cart not found');
-
-        } else if (200 < res.status || res.status > 299) {
-          throw new Error(`Invalid status: ${res.status}`);
-        }
-
-        return res.json();
-      })
-      .then((res) => {
-        const count = res.count;
+      .then((result) => {
+        const count = result.count;
         this.productsCounters.forEach(counter => counter.updateCounter(count));
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
         this.productsCounters.forEach(counter => counter.updateCounter(null));
       });
@@ -64,15 +50,11 @@ class CartController {
 
     deleteBtn.addEventListener('click', () => {
       cartApi.deleteProduct(productId)
-        .then((res) => {
-          if (200 < res.status || res.status > 299) {
-            throw new Error(`Invalid status: ${res.status}`);
-          }
-
+        .then(() => {
           view.clearView();
           this.updateProductCounters();
         })
-        .catch(error => {
+        .catch((error) => {
           console.error(error);
           return false;
         });
@@ -87,15 +69,11 @@ class CartController {
       }
 
       cartApi.updateProductItemQuantity(productId, quantity)
-        .then((res) => {
-          if (200 < res.status || res.status > 299) {
-            throw new Error(`Invalid status: ${res.status}`);
-          }
-
+        .then(() => {
           view.renderNewAmount(quantity);
           this.updateProductCounters();
         })
-        .catch(error => {
+        .catch((error) => {
           console.error(error);
           return false;
         });
