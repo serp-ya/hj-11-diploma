@@ -17,7 +17,13 @@ class CartController {
     }
 
     cartApi.addProduct(productId)
-      .then(() => updateCounters())
+      .then((res) => {
+        if (200 < res.status || res.status > 299) {
+          throw new Error(`Invalid status: ${res.status}`);
+        }
+
+        updateCounters();
+      })
       .catch(error => {
         console.error(error);
         return false;
@@ -30,7 +36,17 @@ class CartController {
 
   updateProductCounters() {
     cartApi.updateCartCount()
-      .then(res => {
+      .then((res) => {
+        if (res.status === 404) {
+          throw new Error('Cart not found');
+
+        } else if (200 < res.status || res.status > 299) {
+          throw new Error(`Invalid status: ${res.status}`);
+        }
+
+        return res.json();
+      })
+      .then((res) => {
         const count = res.count;
         this.productsCounters.forEach(counter => counter.updateCounter(count));
       })
@@ -48,7 +64,11 @@ class CartController {
 
     deleteBtn.addEventListener('click', () => {
       cartApi.deleteProduct(productId)
-        .then(() => {
+        .then((res) => {
+          if (200 < res.status || res.status > 299) {
+            throw new Error(`Invalid status: ${res.status}`);
+          }
+
           view.clearView();
           this.updateProductCounters();
         })
@@ -67,8 +87,12 @@ class CartController {
       }
 
       cartApi.updateProductItemQuantity(productId, quantity)
-        .then(newQuantity => {
-          view.renderNewAmount(newQuantity);
+        .then((res) => {
+          if (200 < res.status || res.status > 299) {
+            throw new Error(`Invalid status: ${res.status}`);
+          }
+
+          view.renderNewAmount(quantity);
           this.updateProductCounters();
         })
         .catch(error => {
