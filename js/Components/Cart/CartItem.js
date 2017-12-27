@@ -6,11 +6,13 @@ class CartItem {
     }
 
     this.cartItem = options.rootElement;
+    this.controller = options.controller;
+
     this.quantityFeild = this.cartItem.querySelector('.product-quantity');
     this.priceField = this.cartItem.querySelector('.current-price');
     this.amountResultField = this.cartItem.querySelector('.amount-result');
 
-    this.initController(cartController);
+    this.initController(this.controller);
   }
 
   initController(controller) {

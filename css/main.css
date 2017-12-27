@@ -5471,6 +5471,8 @@ ul.products-list {
 	color: #0fb7a4
 }
 button.button.cart-button {
+	position: relative;
+	padding: 8px 35px;
 	border: 2px solid #0fb7a4;
 	background: #0fb7a4;
 	color: #fff;
@@ -6021,9 +6023,10 @@ button.button.cart-button {
 	float: left
 }
 button.button.pro-add-to-cart {
+	position: relative;
 	background: #0fb7a4;
 	color: #fff;
-	padding: 7px 22px
+	padding: 7px 30px
 }
 button.button.pro-add-to-cart:hover {
 	background: #000;
@@ -6973,4 +6976,53 @@ i.fa.fa-microphone.active {
 
 .close-chat-btn:hover {
 	color: #0fb7a4
+}
+
+button.add-to-cart-mt.in-process:after,
+button.add-to-cart-mt.it-add:after,
+button.add-to-cart-mt.it-failed:after,
+button.button.pro-add-to-cart.in-process:after,
+button.button.pro-add-to-cart.it-add:after,
+button.button.pro-add-to-cart.it-failed:after,
+button.button.cart-button.in-process:after,
+button.button.cart-button.it-add:after,
+button.button.cart-button.it-failed:after {
+	content: "";
+	position: absolute;
+	right: 15px;
+	width: 15px;
+	height: 15px;
+	background-size: cover;
+}
+
+button.add-to-cart-mt.in-process:after,
+button.button.pro-add-to-cart.in-process:after,
+button.button.cart-button.in-process:after {
+	background-image: url(../images/preloader.gif);
+}
+
+button.add-to-cart-mt.it-add:after,
+button.button.pro-add-to-cart.it-add:after,
+button.button.cart-button.it-add:after {
+	content: "\f05d";
+	font: normal normal normal 14px/1 FontAwesome;
+	transition: all 0.5s;
+}
+
+button.add-to-cart-mt.it-failed:after,
+button.button.pro-add-to-cart.it-failed:after,
+button.button.cart-button.it-failed:after {
+	content: "\f00d";
+	font: normal normal normal 14px/1 FontAwesome;
+	transition: all 0.5s;
+}
+
+button.button.pro-add-to-cart.in-process:after,
+button.button.cart-button.in-process:after,
+button.button.pro-add-to-cart.it-add:after,
+button.button.cart-button.it-add:after,
+button.button.pro-add-to-cart.it-failed:after,
+button.button.cart-button.it-failed:after {
+	top: 50%;
+	transform: translateY(-50%);
 }

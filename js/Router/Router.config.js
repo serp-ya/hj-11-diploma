@@ -29,7 +29,8 @@ window.howMuchProductsShow = 6;
 
 window.addEventListener('DOMContentLoaded', () => {
   new CartProductsCounter({
-    rootElement: document.getElementById('countInCart')
+    rootElement: document.getElementById('countInCart'),
+    controller: cartController
   });
 
   router
@@ -49,7 +50,10 @@ window.addEventListener('DOMContentLoaded', () => {
           appBlock.renderPage(domElements);
 
           const addProductBtn = app.querySelector('.pro-add-to-cart');
-          new AddToCartBtn({ rootElement: addProductBtn});
+          new AddToCartBtn({
+            rootElement: addProductBtn,
+            controller: cartController
+          });
 
           preloader.hide();
         })
@@ -78,7 +82,10 @@ window.addEventListener('DOMContentLoaded', () => {
           const productItems = document.querySelectorAll('.product-item');
 
           Array.from(productItems).forEach(productCard => {
-            new CartItem({ rootElement: productCard });
+            new CartItem({
+              rootElement: productCard,
+              controller: cartController
+            });
           });
 
           preloader.hide();
@@ -115,11 +122,17 @@ window.addEventListener('DOMContentLoaded', () => {
           const addProductBtns = app.querySelectorAll('.add-to-cart-mt');
 
           Array.from(addProductBtns).forEach(addBtn => {
-            new AddToCartBtn({ rootElement: addBtn });
+            new AddToCartBtn({
+              rootElement: addBtn,
+              controller: cartController
+            });
           });
 
           const showProductsBySelect = app.querySelector('.show-products-by');
-          new ShowProductsBy({ rootElement: showProductsBySelect });
+          new ShowProductsBy({
+            rootElement: showProductsBySelect,
+            controller: showProductsByController
+          });
 
           return fetch(goodsCountRequestApiUrl, requestDefaultConfig);
         })
@@ -153,7 +166,10 @@ window.addEventListener('DOMContentLoaded', () => {
           const addProductBtns = app.querySelectorAll('.cart-button');
 
           Array.from(addProductBtns).forEach(addBtn => {
-            new AddToCartBtn({ rootElement: addBtn });
+            new AddToCartBtn({
+              rootElement: addBtn,
+              controller: cartController
+            });
           });
 
           preloader.hide();

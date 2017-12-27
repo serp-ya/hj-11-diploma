@@ -6,7 +6,9 @@ class ShowProductsBy {
     }
 
     this.optionsList = options.rootElement;
-    this.initController(showProductsByController);
+    this.controller = options.controller;
+
+    this.initController(this.controller);
   }
 
   initController(controller) {

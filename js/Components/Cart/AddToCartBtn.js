@@ -6,10 +6,40 @@ class AddToCartBtn {
     }
 
     this.addBtn = options.rootElement;
-    this.initController(cartController);
+    this.controller = options.controller;
+
+    this.initController(this.controller);
   }
 
   initController(controller) {
-    controller.addProduct(this.addBtn);
+    controller.addProduct(this);
+  }
+
+  changeState(newState) {
+    this.cleanStateClasses();
+
+    if (newState === 'tryingToAdd') {
+      this.addBtn.classList.add('in-process');
+
+    } else if (newState === 'itAdd') {
+      this.addBtn.classList.remove('in-process');
+      this.addBtn.classList.add('it-add');
+
+      setTimeout(() => {
+        this.cleanStateClasses();
+      }, 3000);
+
+    } else if (newState === 'addIsFailed') {
+      this.addBtn.classList.remove('in-process');
+      this.addBtn.classList.add('it-failed');
+
+      setTimeout(() => {
+        this.cleanStateClasses();
+      }, 3000);
+    }
+  }
+
+  cleanStateClasses() {
+    this.addBtn.classList.remove('in-process', 'it-add', 'it-failed');
   }
 }

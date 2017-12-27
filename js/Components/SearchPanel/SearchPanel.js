@@ -6,9 +6,10 @@ class SearchPanel {
     }
 
     this.rootElement = options.rootElement;
+    this.controller = options.controller;
     this.inputField = this.rootElement.querySelector('input');
 
-    this.initController(searchPanelController);
+    this.initController(this.controller);
   }
 
   initController(controller) {
@@ -38,5 +39,6 @@ class SearchPanel {
 }
 
 const searchPanel = new SearchPanel({
-  rootElement: document.querySelector('.search-panel')
+  rootElement: document.querySelector('.search-panel'),
+  controller: searchPanelController
 });

@@ -6,7 +6,9 @@ class CartProductsCounter {
     }
 
     this.cartCounter = options.rootElement;
-    this.initController(cartController);
+    this.controller = options.controller;
+
+    this.initController(this.controller);
   }
 
   initController(controller) {
