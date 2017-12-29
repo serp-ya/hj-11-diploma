@@ -18,25 +18,21 @@ class AddToCartBtn {
   changeState(newState) {
     this.cleanStateClasses();
 
-    if (newState === 'tryingToAdd') {
-      this.addBtn.classList.add('in-process');
-
-    } else if (newState === 'itAdd') {
-      this.addBtn.classList.remove('in-process');
-      this.addBtn.classList.add('it-add');
-
-      setTimeout(() => {
-        this.cleanStateClasses();
-      }, 3000);
-
-    } else if (newState === 'addIsFailed') {
-      this.addBtn.classList.remove('in-process');
-      this.addBtn.classList.add('it-failed');
-
-      setTimeout(() => {
-        this.cleanStateClasses();
-      }, 3000);
+    switch(newState) {
+      case 'tryingToAdd':
+        this.addBtn.classList.add('in-process');
+        break;
+      case 'itAdd':
+        this.addBtn.classList.add('it-add');
+        break;
+      case 'addIsFailed':
+        this.addBtn.classList.add('it-failed');
+        break;
     }
+
+    setTimeout(() => {
+      this.cleanStateClasses();
+    }, 3000);
   }
 
   cleanStateClasses() {
