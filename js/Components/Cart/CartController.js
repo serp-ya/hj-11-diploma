@@ -28,25 +28,6 @@ class CartController {
     })
   }
 
-  addProductEvent(event) {
-    const addBtn = event.currentTarget;
-    const productId = addBtn.dataset.productId;
-    const updateCounters = this.updateProductCounters.bind(this);
-
-    if (!productId) {
-      throw new Error('Invalid product\'s Id');
-    }
-
-    cartApi.addProduct(productId)
-      .then(() => {
-        updateCounters();
-      })
-      .catch((error) => {
-        console.error(error);
-        return false;
-      });
-  }
-
   addProductsCounter(counter) {
     this.productsCounters.push(counter);
   }
