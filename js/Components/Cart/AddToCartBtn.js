@@ -7,12 +7,11 @@ class AddToCartBtn {
 
     this.addBtn = options.rootElement;
     this.controller = options.controller;
+    this.addProductHandler = options.addProductHandler;
 
-    this.initController(this.controller);
-  }
+    this.productId = this.addBtn.dataset.productId;
 
-  initController(controller) {
-    controller.addProduct(this);
+    this.addBtn.addEventListener('click', this.addProductHandler(this, this.controller));
   }
 
   changeState(newState) {

@@ -52,7 +52,8 @@ window.addEventListener('DOMContentLoaded', () => {
           const addProductBtn = app.querySelector('.pro-add-to-cart');
           new AddToCartBtn({
             rootElement: addProductBtn,
-            controller: cartController
+            controller: cartController,
+            addProductHandler: addProductHandler
           });
 
           preloader.hide();
@@ -124,7 +125,8 @@ window.addEventListener('DOMContentLoaded', () => {
           Array.from(addProductBtns).forEach(addBtn => {
             new AddToCartBtn({
               rootElement: addBtn,
-              controller: cartController
+              controller: cartController,
+              addProductHandler: addProductHandler
             });
           });
 
@@ -168,7 +170,8 @@ window.addEventListener('DOMContentLoaded', () => {
           Array.from(addProductBtns).forEach(addBtn => {
             new AddToCartBtn({
               rootElement: addBtn,
-              controller: cartController
+              controller: cartController,
+              addProductHandler: addProductHandler
             });
           });
 

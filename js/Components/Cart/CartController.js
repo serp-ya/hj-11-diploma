@@ -3,29 +3,8 @@ class CartController {
     this.productsCounters = [];
   }
 
-  addProduct(addBtnView) {
-    const addBtn = addBtnView.addBtn;
-    const productId = addBtn.dataset.productId;
-
-    if (!productId) {
-      throw new Error('Invalid product\'s Id');
-    }
-
-    addBtn.addEventListener('click', () => {
-      addBtnView.changeState('tryingToAdd');
-      const updateCounters = this.updateProductCounters.bind(this);
-
-      cartApi.addProduct(productId)
-        .then(() => {
-          updateCounters();
-          addBtnView.changeState('itAdd');
-        })
-        .catch((error) => {
-          console.error(error);
-          addBtnView.changeState('addIsFailed');
-          return false;
-        });
-    })
+  addProduct(productId) {
+    return cartApi.addProduct(productId)
   }
 
   addProductsCounter(counter) {
