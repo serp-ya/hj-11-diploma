@@ -4,16 +4,9 @@ class CartProductsCounter {
     if (!options.rootElement) {
       throw new Error('Не передан корневой элемент');
     }
-
     this.cartCounter = options.rootElement;
-    this.controller = options.controller;
 
-    this.initController(this.controller);
-  }
-
-  initController(controller) {
-    controller.addProductsCounter(this);
-    controller.updateProductCounters();
+    options.initializator.bind(this)();
   }
 
   updateCounter(newCount) {

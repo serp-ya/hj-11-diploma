@@ -6,14 +6,23 @@ class SearchPanel {
     }
 
     this.rootElement = options.rootElement;
-    this.controller = options.controller;
-    this.inputField = this.rootElement.querySelector('input');
+    this.validateSearchPanelHandler = options.validateSearchPanelHandler;
+    this.makeSearchRequestHandler = options.makeSearchRequestHandler;
 
-    this.initController(this.controller);
+    this.inputField = this.rootElement.querySelector('input');
+    this.searchBtn = this.rootElement.querySelector('.fa.fa-search');
+
+    this.inputField.addEventListener('input', this.validateSearchPanelHandler.bind(this));
+    this.inputField.addEventListener('keypress', this.makeSearchRequestHandler.bind(this));
+    this.searchBtn.addEventListener('click', this.makeSearchRequestHandler.bind(this));
   }
 
-  initController(controller) {
-    controller.searchPanelInit(this);
+  get enteredData() {
+    return this.inputField.value;
+  }
+
+  get isValid() {
+    return (!!this.enteredData.trim()) && (this.enteredData.length > 3);
   }
 
   clearValidation() {
@@ -38,7 +47,10 @@ class SearchPanel {
   };
 }
 
-const searchPanel = new SearchPanel({
-  rootElement: document.querySelector('.search-panel'),
-  controller: searchPanelController
+window.addEventListener('DOMContentLoaded', () => {
+  new SearchPanel({
+    rootElement: document.querySelector('.search-panel'),
+    validateSearchPanelHandler: validateSearchPanel,
+    makeSearchRequestHandler: makeSearchRequest
+  });
 });

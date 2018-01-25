@@ -6,12 +6,13 @@ class AddToCartBtn {
     }
 
     this.addBtn = options.rootElement;
-    this.controller = options.controller;
     this.addProductHandler = options.addProductHandler;
 
-    this.productId = this.addBtn.dataset.productId;
+    this.addBtn.addEventListener('click', this.addProductHandler.bind(this));
+  }
 
-    this.addBtn.addEventListener('click', this.addProductHandler(this, this.controller));
+  get productId() {
+    return this.addBtn.dataset.productId;
   }
 
   changeState(newState) {

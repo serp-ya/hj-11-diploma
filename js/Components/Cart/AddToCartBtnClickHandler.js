@@ -1,18 +1,14 @@
-function addProductHandler(wrapper, controller) {
-  const productId = wrapper.productId;
+function addProductHandler(event) {
+  this.changeState('tryingToAdd');
 
-  return function (event) {
-    wrapper.changeState('tryingToAdd');
-
-    controller.addProduct(productId)
-      .then(() => {
-        controller.updateProductCounters();
-        wrapper.changeState('itAdd');
-      })
-      .catch((error) => {
-        console.error(error);
-        wrapper.changeState('addIsFailed');
-        return false;
-      });
-  }
+  cartController.addProduct(this.productId)
+    .then(() => {
+      cartController.updateProductCounters();
+      this.changeState('itAdd');
+    })
+    .catch((error) => {
+      console.error(error);
+      this.changeState('addIsFailed');
+      return false;
+    });
 }

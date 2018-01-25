@@ -23,42 +23,12 @@ class CartController {
       });
   }
 
-  cartItemInit(view) {
-    const self = view.cartItem;
-    const productId = self.dataset.productId;
-    const deleteBtn = self.querySelector('.icon-close');
-    const quantityField = self.querySelector('.product-quantity');
+  deleteCartItem(productId) {
+    return cartApi.deleteProduct(productId);
+  }
 
-    deleteBtn.addEventListener('click', () => {
-      cartApi.deleteProduct(productId)
-        .then(() => {
-          view.clearView();
-          this.updateProductCounters();
-        })
-        .catch((error) => {
-          console.error(error);
-          return false;
-        });
-    });
-
-    quantityField.addEventListener('input', (event) => {
-      const quantityField = event.currentTarget;
-      const quantity = Number(quantityField.value);
-
-      if (quantity < 1) {
-        return view.setValueToOne();
-      }
-
-      cartApi.updateProductItemQuantity(productId, quantity)
-        .then(() => {
-          view.renderNewAmount(quantity);
-          this.updateProductCounters();
-        })
-        .catch((error) => {
-          console.error(error);
-          return false;
-        });
-    });
+  updateCartItemAmount(productId, newQuantity) {
+    return cartApi.updateProductItemQuantity(productId, newQuantity);
   }
 }
 

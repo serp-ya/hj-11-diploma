@@ -6,20 +6,33 @@ class CartItem {
     }
 
     this.cartItem = options.rootElement;
-    this.controller = options.controller;
+    this.deleteCartItemHandler = options.deleteCartItemHandler;
+    this.updateCartItemAmountHandler = options.updateCartItemAmountHandler;
 
+    this.deleteBtn = this.cartItem.querySelector('.icon-close');
     this.quantityFeild = this.cartItem.querySelector('.product-quantity');
-    this.priceField = this.cartItem.querySelector('.current-price');
-    this.amountResultField = this.cartItem.querySelector('.amount-result');
 
-    this.initController(this.controller);
+    this.deleteBtn.addEventListener('click', this.deleteCartItemHandler.bind(this));
+    this.quantityFeild.addEventListener('input', this.updateCartItemAmountHandler.bind(this));
   }
 
-  initController(controller) {
-    controller.cartItemInit(this);
+  get productId() {
+    return this.cartItem.dataset.productId;
+  }
+
+  get priceField() {
+    return this.cartItem.querySelector('.current-price');
+  }
+
+  get amountResultField() {
+    return this.cartItem.querySelector('.amount-result');
   }
 
   clearView() {
+    this.cartItem.remove();
+  }
+
+  deleteItem() {
     this.cartItem.remove();
   }
 

@@ -6,16 +6,8 @@ class ShowProductsBy {
     }
 
     this.optionsList = options.rootElement;
-    this.controller = options.controller;
+    this.showProductByChangeHandler = options.showProductByChangeHandler;
 
-    this.initController(this.controller);
-  }
-
-  initController(controller) {
-    controller.showProductsBylInit(this);
-  }
-
-  updatePage() {
-    router.check();
+    this.optionsList.addEventListener('change', this.showProductByChangeHandler.bind(this));
   }
 }

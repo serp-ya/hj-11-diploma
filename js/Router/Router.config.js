@@ -30,7 +30,7 @@ window.howMuchProductsShow = 6;
 window.addEventListener('DOMContentLoaded', () => {
   new CartProductsCounter({
     rootElement: document.getElementById('countInCart'),
-    controller: cartController
+    initializator: counterUpdateHandler
   });
 
   router
@@ -52,7 +52,6 @@ window.addEventListener('DOMContentLoaded', () => {
           const addProductBtn = app.querySelector('.pro-add-to-cart');
           new AddToCartBtn({
             rootElement: addProductBtn,
-            controller: cartController,
             addProductHandler: addProductHandler
           });
 
@@ -85,7 +84,8 @@ window.addEventListener('DOMContentLoaded', () => {
           Array.from(productItems).forEach(productCard => {
             new CartItem({
               rootElement: productCard,
-              controller: cartController
+              deleteCartItemHandler: deleteCartItem,
+              updateCartItemAmountHandler: updateCartItemAmount,
             });
           });
 
@@ -125,7 +125,6 @@ window.addEventListener('DOMContentLoaded', () => {
           Array.from(addProductBtns).forEach(addBtn => {
             new AddToCartBtn({
               rootElement: addBtn,
-              controller: cartController,
               addProductHandler: addProductHandler
             });
           });
@@ -133,7 +132,7 @@ window.addEventListener('DOMContentLoaded', () => {
           const showProductsBySelect = app.querySelector('.show-products-by');
           new ShowProductsBy({
             rootElement: showProductsBySelect,
-            controller: showProductsByController
+            showProductByChangeHandler: showProductByChange
           });
 
           return fetch(goodsCountRequestApiUrl, requestDefaultConfig);
@@ -170,7 +169,6 @@ window.addEventListener('DOMContentLoaded', () => {
           Array.from(addProductBtns).forEach(addBtn => {
             new AddToCartBtn({
               rootElement: addBtn,
-              controller: cartController,
               addProductHandler: addProductHandler
             });
           });
