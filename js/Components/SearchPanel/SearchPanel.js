@@ -39,12 +39,6 @@ class SearchPanel {
     this.inputField.classList.add('valid');
     this.inputField.classList.remove('invalid');
   }
-
-  goToSearchPage(queryString) {
-    router.navigate(queryString);
-    this.inputField.value = null;
-    this.clearValidation();
-  };
 }
 
 window.addEventListener('DOMContentLoaded', () => {

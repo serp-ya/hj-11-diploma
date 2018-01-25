@@ -28,10 +28,6 @@ class CartItem {
     return this.cartItem.querySelector('.amount-result');
   }
 
-  clearView() {
-    this.cartItem.remove();
-  }
-
   deleteItem() {
     this.cartItem.remove();
   }
